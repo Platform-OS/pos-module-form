@@ -1,0 +1,20 @@
+{% comment %}
+  Loads a form error.
+
+  Params:
+    - form_name
+{% endcomment %}
+{% liquid
+  assign form_errors = context.session.form_errors
+  unless form_errors
+    return nil
+  endunless
+
+  assign errors = form_errors[form_name]
+
+  if form_errors[form_name]
+    function res = 'modules/form/lib/commands/error/clear', form_name: form_name,
+  endif
+
+  return errors
+%}
