@@ -1,0 +1,51 @@
+{% comment %}
+  Implements hook_module_info.
+
+  Required fileds in the info json:
+    - name: String
+      The human readable name of the module/theme
+    - machine_name: String
+      The module's name. This name will used by dependency handling.
+    - type: String
+      It can be 'module' or 'theme'
+    - version: String
+      The module's version
+    - dependencies: Array
+      The list of the module/themes dependecies.
+
+  Examples:
+  {
+    "name": "Profile",
+    "machine_name": "profile",
+    "type": "module",
+    "version": "1.0.0",
+    "dependencies": [
+      "core",
+      "user"
+    ]
+  }
+
+  {
+    "name": "Custom theme 1",
+    "machine_name": "custom-theme1",
+    "type": "theme",
+    "version": "1.0.0",
+    "dependencies": [
+      "theme-manager",
+      "components"
+    ]
+  }
+{% endcomment %}
+{% parse_json info %}
+{
+  "name": "",
+  "machine_name": "",
+  "type": "",
+  "version": "1.0.0",
+  "dependencies": [
+    "core"
+  ]
+}
+{% endparse_json %}
+
+{% return info %}
