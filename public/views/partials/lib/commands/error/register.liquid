@@ -4,13 +4,18 @@
   Params:
     - form_name
     - errors Object
+    - values Object
 {% endcomment %}
 {% liquid
   assign form_errors = context.session.form_errors
   unless form_errors
     assign form_errors = '{}' | parse_json
   endunless
-  hash_assign form_errors[form_name] = errors
+  unless form_errors[form_name]
+    hash_assign form_errors[form_name] = '{}' | parse_json
+  endunless
+  hash_assign form_errors[form_name]['errors'] = errors
+  hash_assign form_errors[form_name]['values'] = values
 
   session form_errors = form_errors
 
