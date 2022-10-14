@@ -1,0 +1,18 @@
+{% comment %}
+  Registers a form error.
+
+  Params:
+    - form_name
+    - errors Object
+{% endcomment %}
+{% liquid
+  assign form_errors = context.session.form_errors
+  unless form_errors
+    assign form_errors = '{}' | parse_json
+  endunless
+  hash_assign form_errors[form_name] = errors
+
+  session form_errors = form_errors
+
+  return nil
+%}
