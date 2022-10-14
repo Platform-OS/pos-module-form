@@ -1,0 +1,20 @@
+{% comment %}
+  Clears a form's error.
+
+  Params:
+    - form_name
+{% endcomment %}
+{% liquid
+  log 'clearing'
+  assign form_errors = context.session.form_errors
+  unless form_errors
+    return nil
+  endunless
+  assign form_errors = form_errors | hash_delete_key: form_name
+
+  session form_errors = form_errors
+
+  log context, type: 'context'
+
+  return nil
+%}
