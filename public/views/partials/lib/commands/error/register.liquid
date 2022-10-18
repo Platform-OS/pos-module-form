@@ -7,17 +7,17 @@
     - values Object
 {% endcomment %}
 {% liquid
-  assign form_errors = context.session.form_errors
-  unless form_errors
-    assign form_errors = '{}' | parse_json
+  assign forms = context.session.forms
+  unless forms
+    assign forms = '{}' | parse_json
   endunless
-  unless form_errors[form_name]
-    hash_assign form_errors[form_name] = '{}' | parse_json
+  unless forms[form_name]
+    hash_assign forms[form_name] = '{}' | parse_json
   endunless
-  hash_assign form_errors[form_name]['errors'] = errors
+  hash_assign forms[form_name]['errors'] = errors
   hash_assign form_errors[form_name]['values'] = values
 
-  session form_errors = form_errors
+  session forms = forms
 
   return nil
 %}

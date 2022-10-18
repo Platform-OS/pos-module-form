@@ -5,16 +5,17 @@
     - form_name
 {% endcomment %}
 {% liquid
-  log 'clearing'
-  assign form_errors = context.session.form_errors
-  unless form_errors
+  assign forms = context.session.forms
+  unless forms
     return nil
   endunless
-  assign form_errors = form_errors | hash_delete_key: form_name
+  unless forms[form_name]
+    return nil
+  endunless
 
-  session form_errors = form_errors
+  hash_assign forms[form_name]['errors'] = nil
 
-  log context, type: 'context'
+  session forms = forms
 
   return nil
 %}
