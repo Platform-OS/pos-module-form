@@ -1,0 +1,21 @@
+{% comment %}
+  Clears a form's values.
+
+  Params:
+    - form_name
+{% endcomment %}
+{% liquid
+  assign forms = context.session.forms
+  unless forms
+    return nil
+  endunless
+  unless forms[form_name]
+    return nil
+  endunless
+  
+  hash_assign forms[form_name]['values'] = nil
+
+  session forms = forms
+
+  return nil
+%}

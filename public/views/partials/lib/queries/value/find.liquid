@@ -1,0 +1,16 @@
+{% comment %}
+  Loads a form's values.
+
+  Params:
+    - form_name
+{% endcomment %}
+{% liquid
+  assign forms = context.session.forms
+  unless forms
+    return nil
+  endunless
+
+  assign values = forms[form_name]['values']
+
+  return values
+%}

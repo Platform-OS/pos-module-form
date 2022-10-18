@@ -1,0 +1,21 @@
+{% comment %}
+  Stores a form values.
+
+  Params:
+    - form_name
+    - values Object
+{% endcomment %}
+{% liquid
+  assign forms = context.session.forms
+  unless forms
+    assign forms = '{}' | parse_json
+  endunless
+  unless forms[form_name]
+    hash_assign forms[form_name] = '{}' | parse_json
+  endunless
+  hash_assign forms[form_name]['values'] = values
+
+  session forms = forms
+
+  return nil
+%}
