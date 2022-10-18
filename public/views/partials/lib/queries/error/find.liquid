@@ -3,16 +3,23 @@
 
   Params:
     - form_name
+    - clear boolean
+      Clear the errors or not. Default: true
+
 {% endcomment %}
 {% liquid
-  assign form_errors = context.session.form_errors
-  unless form_errors
+  if clear == nil
+    assign clear = true
+  endif
+
+  assign forms = context.session.forms
+  unless forms
     return nil
   endunless
 
-  assign errors = form_errors[form_name]
+  assign errors = forms[form_name]['errors']
 
-  if form_errors[form_name]
+  if errors and clear
     function res = 'modules/form/lib/commands/error/clear', form_name: form_name,
   endif
 
