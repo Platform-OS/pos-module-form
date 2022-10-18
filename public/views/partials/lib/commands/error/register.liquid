@@ -15,7 +15,6 @@
     hash_assign forms[form_name] = '{}' | parse_json
   endunless
   hash_assign forms[form_name]['errors'] = errors
-  hash_assign form_errors[form_name]['values'] = values
 
   session forms = forms
 
