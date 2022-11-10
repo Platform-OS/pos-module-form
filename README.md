@@ -54,3 +54,10 @@ if count > 0
   function errors = 'modules/form/lib/commands/field_error/register', errors: errors, field_name: 'email', error: 'Email is  already subscribed'
 endif
 ```
+
+## Versioning
+
+```
+git fetch origin --tags
+npm version major | minor | patch
+```

@@ -1,0 +1,8 @@
+{
+  "name": "Form",
+  "machine_name": "form",
+  "type": "module",
+  "version": "0.0.0",
+  "dependencies": {
+  }
+}
