@@ -4,19 +4,25 @@
   Params:
     - form_name
     - errors Object
-    - values Object
 {% endcomment %}
 {% liquid
-  assign forms = context.session.forms
-  unless forms
-    assign forms = '{}' | parse_json
-  endunless
-  unless forms[form_name]
-    hash_assign forms[form_name] = '{}' | parse_json
-  endunless
-  hash_assign forms[form_name]['errors'] = errors
+  function object = 'modules/form/lib/commands/error/register/build', form_name: form_name, errors: errors
+  function object = 'modules/form/lib/commands/error/register/check', object: object
 
-  session forms = forms
+  if object.valid
+    assign forms = context.session.forms
+    unless forms
+      assign forms = '{}' | parse_json
+    endunless
+    unless forms[object.form_name]
+      hash_assign forms[object.form_name] = '{}' | parse_json
+    endunless
+    hash_assign forms[object.form_name]['errors'] = object.form_errors
 
-  return nil
+    session forms = forms
+
+    hash_assign object['form'] = forms[object.form_name]
+  endif
+
+  return object
 %}

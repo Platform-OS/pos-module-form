@@ -1,0 +1,8 @@
+{% parse_json object %}
+  {
+    "form_name": {{ form_name | json }},
+    "form_errors": {{ errors }}
+  }
+{% endparse_json %}
+
+{% return object %}
