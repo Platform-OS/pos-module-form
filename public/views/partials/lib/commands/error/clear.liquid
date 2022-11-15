@@ -5,17 +5,22 @@
     - form_name
 {% endcomment %}
 {% liquid
-  assign forms = context.session.forms
-  unless forms
-    return nil
-  endunless
-  unless forms[form_name]
-    return nil
-  endunless
+  function object = 'modules/form/lib/commands/error/clear/build', form_name: form_name, errors: errors
+  function object = 'modules/form/lib/commands/error/clear/check', object: object
 
-  hash_assign forms[form_name]['errors'] = nil
+  if object.valid
+    assign forms = context.session.forms
+    unless forms
+      return object
+    endunless
+    unless forms[object.form_name]
+      return object
+    endunless
 
-  session forms = forms
+    hash_assign forms[object.form_name]['errors'] = nil
 
-  return nil
+    session forms = forms
+  endif
+
+  return object
 %}
